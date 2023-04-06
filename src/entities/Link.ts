@@ -1,5 +1,4 @@
 import { Entity, PrimaryColumn, Column, ManyToOne, Relation } from 'typeorm';
-
 import { User } from './User';
 
 @Entity()
@@ -13,7 +12,7 @@ export class Link {
   @Column()
   lastAccessedOn: Date;
 
-  @Column()
+  @Column({ default: 0 })
   numHits: number;
 
   @ManyToOne(() => User, (user) => user.links)

@@ -1,15 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation, Check } from 'typeorm';
-
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Relation } from 'typeorm';
 import { Link } from './Link';
 
 @Entity()
-@Check('isPro = false and links <= 5')
 export class User {
   @PrimaryGeneratedColumn('uuid')
   userId: string;
 
   @Column({ unique: true })
-  userName: string;
+  username: string;
 
   @Column({ unique: true })
   passwordHash: string;
@@ -20,6 +18,6 @@ export class User {
   @Column({ default: false })
   isAdmin: boolean;
 
-  @OneToMany(() => Link, (link) => link.linkId)
+  @OneToMany(() => Link, (link) => link.user, { cascade: ['insert', 'update'] })
   links: Relation<Link>[];
 }
